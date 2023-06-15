@@ -8,7 +8,7 @@ function App() {
         <h1>Request data</h1>
         <button onClick={
           async () => {
-            const response = await fetch('http://localhost:3000/users')
+            const response = await fetch('/users')
             const data = await response.json()
             console.log(data)
           }
