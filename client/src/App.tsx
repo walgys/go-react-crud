@@ -1,6 +1,21 @@
+import { useState } from 'react'
 import './App.css'
 
 function App() {
+  const [name, setName] = useState('')
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    const options = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name })
+    };
+
+    const response = await fetch('/users', options)
+    const data = await response.json()
+
+    console.log(data)
+  }
 
   return (
     <>
@@ -13,6 +28,12 @@ function App() {
             console.log(data)
           }
         }>Get user data</button>
+        </div>
+        <div>
+          <form action="/users" method="POST" onSubmit={handleSubmit}>
+            <input type="text" name="username" onChange={event => setName(event.target.value)}/>
+            <button type="submit">Create user</button>
+          </form>
         </div>
     </>
   )
